@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ecommerce Ally – Cursor‑Interactive Banner</title>
+  <meta name="description" content="Cursor‑interactive storefront banner with spinning wheel logos." />
+  <style>
+  :root{
+    --wheel: 120px;           /* wheel size */
+    --body-w: 520px;
+    --body-h: 200px;
+    --ride:   90px;
+    --axle-frac: 0.40;        /* distance from center to each wheel center */
+  }
+
+  .banner{
+    width:min(1400px,96vw); height:420px; margin:18px auto 0;
+    position:relative; overflow:hidden;
+    border:1px solid #e2e8f0; border-radius:26px; background:#fff;
+    box-shadow:0 10px 34px rgba(0,0,0,.12);
+    font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .badge{
+    position:absolute; top:14px; left:14px; z-index:3;
+    padding:6px 10px; font-size:12px; border-radius:999px;
+    color:#153E75; border:1px solid #BFDBFE;
+    background:linear-gradient(180deg,#DBEAFE,#BFDBFE);
+  }
+  .road{
+    position:absolute; left:6%; right:6%; bottom:92px; height:2px;
+    background:linear-gradient(90deg,transparent,#e9edf3 20%,#e9edf3 80%,transparent);
+  }
+
+  .car{
+    position:absolute; left:50%; bottom:calc(var(--ride) - 18px); transform:translateX(-50%);
+    width:calc(var(--body-w) + var(--wheel) * 2); height:calc(var(--body-h) + var(--wheel) + 40px);
+    pointer-events:none;
+  }
+  .shadow{
+    position:absolute; left:50%; bottom:calc(var(--wheel) * .5 - 4px); transform:translateX(-50%);
+    width:600px; height:36px; border-radius:999px;
+    background:radial-gradient(closest-side, rgba(0,0,0,.18), transparent 70%); filter:blur(6px); z-index:1;
+  }
+
+  /* Wheel container */
+  .wheel{
+    position:absolute; bottom:0; width:var(--wheel); height:var(--wheel);
+    border-radius:50%; background:#191c22; z-index:2;
+    display:flex; align-items:center; justify-content:center;
+  }
+  /* Perfectly centered hosted logo inside tire */
+  .wheel-logo{
+    width:84%; height:84%;
+    border-radius:50%;
+    background-image:url("https://i.postimg.cc/FzDqP8Xg/ecommerceally-wheel-logo-circle.png"); /* replace with your hosted circular PNG link */
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    transform:rotate(0deg);
+    will-change:transform;
+  }
+
+  .body{ position:absolute; left:50%; bottom:var(--wheel); transform:translateX(-50%);
+    width:var(--body-w); height:var(--body-h); z-index:3; }
+  .body svg{ width:100%; height:100% }
+
+  @media (max-width:900px){
+    :root{ --wheel:92px; --body-w:440px; --body-h:170px; --ride:86px; }
+  }
+  </style>
+</head>
+<body>
+  <!-- ===== Ecommerce Ally Banner (with hosted circular wheel logo) ===== -->
+  <div class="banner" id="banner">
+    <div class="badge">Move your cursor →</div>
+    <div class="road"></div>
+
+    <div class="car" id="car">
+      <div class="shadow"></div>
+
+      <!-- Left wheel -->
+      <div class="wheel" id="wheelL"><div class="wheel-logo" id="logoL"></div></div>
+
+      <!-- Storefront body -->
+      <div class="body">
+        <svg viewBox="0 0 520 200" aria-label="Storefront body">
+          <rect x="6" y="8" width="508" height="184" rx="28" fill="#ffefd6" stroke="#161618" stroke-width="6"/>
+          <rect x="-30" y="62" width="150" height="120" rx="26" fill="#ffefd6" stroke="#161618" stroke-width="6"/>
+          <rect x="400" y="68" width="150" height="116" rx="24" fill="#ffefd6" stroke="#161618" stroke-width="6"/>
+          <rect x="14" y="164" width="492" height="16" rx="8" fill="#ffbc00"/>
+          <rect x="28" y="-16" width="464" height="28" rx="14" fill="#1c1c20" stroke="#161618" stroke-width="6"/>
+          <g id="awning">
+            <rect x="26" y="18" width="468" height="32" rx="10" fill="#fff" stroke="#e5eaf1" stroke-width="2"/>
+            <g fill="none" stroke="#161618" stroke-width="6">
+              <path d="M 40 18 h 44 l -12 32 h -36 z" fill="#ffbc00"/>
+              <path d="M 90 18 h 44 l -12 32 h -36 z" fill="#2563eb"/>
+              <path d="M 140 18 h 44 l -12 32 h -36 z" fill="#10b981"/>
+              <path d="M 190 18 h 44 l -12 32 h -36 z" fill="#ffbc00"/>
+              <path d="M 240 18 h 44 l -12 32 h -36 z" fill="#2563eb"/>
+              <path d="M 290 18 h 44 l -12 32 h -36 z" fill="#10b981"/>
+              <path d="M 340 18 h 44 l -12 32 h -36 z" fill="#ffbc00"/>
+              <path d="M 390 18 h 44 l -12 32 h -36 z" fill="#2563eb"/>
+            </g>
+          </g>
+          <rect x="44" y="76" width="290" height="78" rx="16" fill="#d4e8ff" stroke="#161618" stroke-width="6"/>
+          <rect x="60" y="88" width="120" height="56" fill="rgba(180,210,255,.55)"/>
+          <rect x="410" y="66" width="84" height="96" rx="18" fill="#f5f9fd" stroke="#161618" stroke-width="6"/>
+          <circle cx="424" cy="114" r="8" fill="#7a8da3" stroke="#161618" stroke-width="4"/>
+          <circle cx="14"  cy="114" r="10" fill="#ffd166" stroke="#161618" stroke-width="4"/>
+          <circle cx="506" cy="114" r="10" fill="#ffd166" stroke="#161618" stroke-width="4"/>
+          <g transform="translate(-40,0)">
+            <rect x="70" y="172" width="520" height="34" rx="20" fill="#35604a" stroke="#161618" stroke-width="6"/>
+            <rect x="96" y="180" width="468" height="18" rx="10" fill="#b6ecc9"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Right wheel -->
+      <div class="wheel" id="wheelR"><div class="wheel-logo" id="logoR"></div></div>
+    </div>
+  </div>
+
+  <script>
+  const banner = document.getElementById("banner");
+  const car    = document.getElementById("car");
+  const wheelL = document.getElementById("wheelL");
+  const wheelR = document.getElementById("wheelR");
+  const logoL  = document.getElementById("logoL");
+  const logoR  = document.getElementById("logoR");
+
+  const AXLE_FRAC = 0.40, EASE = 0.12, ROT_PER_PX = 0.35, FRICTION = 0.92;
+
+  function layout(){
+    const cs = getComputedStyle(car);
+    const bodyW = parseFloat(cs.getPropertyValue("--body-w"));
+    const wheel = parseFloat(cs.getPropertyValue("--wheel"));
+    const carW  = car.clientWidth;
+    const axle  = bodyW * AXLE_FRAC;
+    const leftCenter  = carW/2 - axle;
+    const rightCenter = carW/2 + axle;
+    wheelL.style.left = (leftCenter  - wheel/2) + "px";
+    wheelR.style.left = (rightCenter - wheel/2) + "px";
+  }
+  new ResizeObserver(layout).observe(car);
+  window.addEventListener("load", layout);
+  window.addEventListener("resize", layout);
+
+  // Smooth follow + spin
+  let targetX=banner.clientWidth/2, carX=targetX, lastX=carX, angle=0;
+  function setCarX(x){ car.style.transform=`translateX(${x-banner.clientWidth/2}px)`; }
+  function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+  function aim(clientX){ const r=banner.getBoundingClientRect(); targetX=clamp(clientX-r.left,0,r.width); }
+  banner.addEventListener("mousemove",e=>aim(e.clientX),{passive:true});
+  banner.addEventListener("touchstart",e=>e.touches[0]&&aim(e.touches[0].clientX),{passive:true});
+  banner.addEventListener("touchmove", e=>e.touches[0]&&aim(e.touches[0].clientX),{passive:true});
+
+  function tick(){
+    const dx=targetX-carX; carX+=dx*EASE;
+    const vx=carX-lastX;   lastX=carX;
+    if(Math.abs(vx)>0.05) angle+=vx*ROT_PER_PX; else angle*=FRICTION;
+    setCarX(carX);
+    logoL.style.transform = `rotate(${angle}deg)`;
+    logoR.style.transform = `rotate(${angle}deg)`;
+    requestAnimationFrame(tick);
+  }
+  setCarX(carX); requestAnimationFrame(tick);
+  </script>
+</body>
+</html>
